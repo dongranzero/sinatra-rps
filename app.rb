@@ -23,19 +23,28 @@ end
 def play_game(user_move)
   computer_move = ['rock', 'paper', 'scissors'].sample
   result = determine_result(user_move, computer_move)
-  @message = "You played #{user_move}. The computer played #{computer_move}. #{result}."
+  case result
+  when "tie"
+    outcome = "We tied!"
+  when "win"
+    outcome = "We won!"
+  when "lose"
+    outcome = "We lost!"
+  end
+
+  @message = "We played #{user_move}. They played #{computer_move}. #{outcome}"
   erb :index
 end
 
 
 def determine_result(user_move, computer_move)
   if user_move == computer_move
-    "It's a tie!"
+    "tie"
   elsif (user_move == 'rock' && computer_move == 'scissors') ||
         (user_move == 'paper' && computer_move == 'rock') ||
         (user_move == 'scissors' && computer_move == 'paper')
-    "You win!"
+    "win"
   else
-    "You lose!"
+    "lose"
   end
 end
